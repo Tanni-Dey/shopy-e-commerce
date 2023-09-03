@@ -43,11 +43,11 @@ const Signup = () => {
   }, [error]);
 
   // sign up form submit function
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (data.password !== data.confirmPassword) {
       setConfirmPassError("Password and Confim Password are not same");
     } else {
-      createUserWithEmailAndPassword(data.email, data.password);
+      await createUserWithEmailAndPassword(data.email, data.password);
       setConfirmPassError("");
       reset();
     }

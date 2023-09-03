@@ -42,8 +42,8 @@ const Login = () => {
   }, [error]);
 
   // login form submit function
-  const onSubmit = (data) => {
-    signInWithEmailAndPassword(data.email, data.password);
+  const onSubmit = async (data) => {
+    await signInWithEmailAndPassword(data.email, data.password);
     reset();
   };
 
