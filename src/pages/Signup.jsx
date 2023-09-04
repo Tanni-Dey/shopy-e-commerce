@@ -2,9 +2,10 @@ import { auth } from "../lib/firebase";
 import { useForm } from "react-hook-form";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [confirmPassError, setConfirmPassError] = useState("");
   const [weakPassError, setWeakPassError] = useState("");
   const [usedEmailError, setUsedEmailError] = useState("");
@@ -18,6 +19,11 @@ const Signup = () => {
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+
+  // after signup navigation
+  if (user) {
+    navigate("/");
+  }
 
   //firebase error handling
   useEffect(() => {

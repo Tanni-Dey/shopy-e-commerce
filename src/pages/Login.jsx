@@ -1,10 +1,11 @@
 import { auth } from "../lib/firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [wrongPassError, setWrongPassError] = useState("");
   const [notFoundUserError, setNotFoundUserError] = useState("");
   const [networkError, setNetworkError] = useState("");
@@ -17,6 +18,11 @@ const Login = () => {
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+
+  // after login navigation
+  if (user) {
+    navigate("/");
+  }
 
   //firebase error handling
   useEffect(() => {

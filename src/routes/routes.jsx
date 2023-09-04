@@ -5,6 +5,7 @@ import Signup from "../pages/Signup";
 import Dashboard from "../pages/Dashboard";
 import AllProducts from "../pages/AllProducts";
 import AddNewProduct from "../pages/AddNewProduct";
+import ProductDetails from "../pages/ProductDetails";
 import { createBrowserRouter } from "react-router-dom";
 
 // All Routing
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             element: <AddNewProduct />,
           },
         ],
+      },
+      {
+        path: "product/:id",
+        element: <ProductDetails />,
       },
     ],
   },

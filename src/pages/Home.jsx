@@ -5,8 +5,10 @@ const Home = () => {
     <div className="container mx-auto">
       <div className="grid grid-cols-2 items-center">
         <div>
-          <p className="text-gray-400">New Arrive 2023</p>
-          <h2 className="text-7xl font-bold my-8">The Clothing Collection</h2>
+          <p className="text-gray-600">New Arrivals 2023</p>
+          <h2 className="text-8xl font-semibold my-8">
+            The Clothing Collection
+          </h2>
           <button className="btn btn-primary">Shop Now</button>
         </div>
         <div>
