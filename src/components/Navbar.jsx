@@ -79,10 +79,10 @@ const Navbar = () => {
           <a className="btn">
             <NavLink onClick={async () => await signOut()} to="login">
               Log out
-              {user.displayName}
             </NavLink>
           </a>
         )}
+        {user && <NavLink to="/cart">cart</NavLink>}
       </div>
     </div>
   );

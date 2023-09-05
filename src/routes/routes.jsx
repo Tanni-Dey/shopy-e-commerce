@@ -1,12 +1,15 @@
 import App from "../App";
+import Cart from "../pages/Cart";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import Dashboard from "../pages/Dashboard";
 import AllProducts from "../pages/AllProducts";
-import AddNewProduct from "../pages/AddNewProduct";
 import ProductDetails from "../pages/ProductDetails";
 import { createBrowserRouter } from "react-router-dom";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import AddNewProduct from "../pages/Dashboard/SellerDashboard/AddNewProduct";
+import ManageProduct from "../pages/Dashboard/SellerDashboard/ManageProduct";
+import EditProduct from "../pages/Dashboard/SellerDashboard/EditProduct";
 
 // All Routing
 const router = createBrowserRouter([
@@ -38,11 +41,23 @@ const router = createBrowserRouter([
             index: true,
             element: <AddNewProduct />,
           },
+          {
+            path: "manage-product",
+            element: <ManageProduct />,
+          },
+          {
+            path: "edit-product/:id",
+            element: <EditProduct />,
+          },
         ],
       },
       {
         path: "product/:id",
         element: <ProductDetails />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
     ],
   },
