@@ -26,6 +26,15 @@ export const ApiSlice = createApi({
     }),
 
     //product approved put query
+    putEditProduct: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/product-edit?id=${id}`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
+    //product approved put query
     putApporedProduct: builder.mutation({
       query: (id) => ({
         url: `/product-approved?id=${id}`,
@@ -139,6 +148,7 @@ export const {
   usePutCartQuantityMutation,
   usePutDeleteCartProductMutation,
   useDeleteCartMutation,
+  usePutEditProductMutation,
   useGetUserCartProductQuery,
   useAddToWishlistMutation,
   useGetUserWishlistQuery,

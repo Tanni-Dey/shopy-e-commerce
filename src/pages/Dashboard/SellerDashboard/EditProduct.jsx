@@ -1,7 +1,10 @@
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useGetSingleProductQuery } from "../../../redux/api/ApiSlice";
+import {
+  useGetSingleProductQuery,
+  usePutEditProductMutation,
+} from "../../../redux/api/ApiSlice";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -11,6 +14,9 @@ const EditProduct = () => {
     refetchOnFocus: true,
     pollingInterval: 3000,
   });
+
+  //product edit redux query by id
+  const [putEditProduct] = usePutEditProductMutation();
 
   // react hook form
   const {
@@ -38,20 +44,20 @@ const EditProduct = () => {
       data.offprint = false;
     }
 
-    // const postData = await postAddProduct(data);
-    // if (postData?.data?.insertedId) {
-    //   void Swal.fire({
-    //     title: "Product Updated",
-    //     icon: "success",
-    //   });
-    //   reset();
-    // } else {
-    //   void Swal.fire({
-    //     title: "Product Not Updated",
-    //     icon: "error",
-    //     confirmButtonText: "Try Again",
-    //   });
-    // }
+    const editData = await putEditProduct(data);
+    if (editData?.data?.insertedId) {
+      void Swal.fire({
+        title: "Product Updated",
+        icon: "success",
+      });
+      reset();
+    } else {
+      void Swal.fire({
+        title: "Product Not Updated",
+        icon: "error",
+        confirmButtonText: "Try Again",
+      });
+    }
   };
 
   return (
@@ -66,7 +72,6 @@ const EditProduct = () => {
           type="text"
           {...register("title")}
           defaultValue={product?.title}
-          onMouseOver={() => setMyInput("title")}
           placeholder="Enter product name"
           className="input mr-3 input-bordered input-primary mb-3 w-full max-w-xs"
         />
@@ -78,7 +83,6 @@ const EditProduct = () => {
           type="text"
           {...register("description")}
           defaultValue={product?.description}
-          onMouseOver={() => setMyInput("description")}
           placeholder="Enter product description"
           className="input mr-3 input-bordered input-primary mb-3 w-full max-w-xs"
         />
