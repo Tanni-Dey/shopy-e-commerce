@@ -7,7 +7,7 @@ const useSeller = (user) => {
 
   //check seller by api
   if (email) {
-    fetch(`http://localhost:5000/check-seller?email=${email}`)
+    fetch(`https://shopy-new-backend.onrender.com/check-seller?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         setSellerLoading(false);

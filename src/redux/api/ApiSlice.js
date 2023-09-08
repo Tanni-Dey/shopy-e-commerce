@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const ApiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000",
+    baseUrl: "https://shopy-new-backend.onrender.com",
   }),
   endpoints: (builder) => ({
     //all product get query
@@ -108,6 +108,15 @@ export const ApiSlice = createApi({
       }),
     }),
 
+    //post user query
+    postAddUser: builder.mutation({
+      query: (data) => ({
+        url: "/add-user",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     //user orders get query
     getUserOrders: builder.query({
       query: (email) => `/user-orders?email=${email}`,
@@ -135,6 +144,7 @@ export const {
   useGetUserWishlistQuery,
   useGetCheckSellerQuery,
   usePostAddOrderMutation,
+  usePostAddUserMutation,
   useGetUserOrdersQuery,
   useGetSingleOrderQuery,
 } = ApiSlice;

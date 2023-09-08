@@ -3,9 +3,13 @@ import { useForm } from "react-hook-form";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { usePostAddUserMutation } from "../redux/api/ApiSlice";
 
 const Signup = () => {
   const navigate = useNavigate();
+
+  //create user with redux rtk mutation
+  const [postAddUser] = usePostAddUserMutation();
 
   //custom error state
   const [confirmPassError, setConfirmPassError] = useState("");
@@ -58,6 +62,14 @@ const Signup = () => {
     if (data.password !== data.confirmPassword) {
       setConfirmPassError("Password and Confim Password are not same");
     } else {
+      const userData = {
+        user: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+        password: data.password,
+      };
+      await postAddUser(userData);
       await createUserWithEmailAndPassword(data.email, data.password);
       setConfirmPassError("");
       reset();
