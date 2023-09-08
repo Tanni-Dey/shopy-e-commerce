@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import {
+  useDeleteProductMutation,
   useGetAllProductsQuery,
   usePutApporedProductMutation,
 } from "../../../redux/api/ApiSlice";
+import Swal from "sweetalert2";
 
 const ManageProduct = () => {
   //data fetch by redux api
@@ -13,10 +15,40 @@ const ManageProduct = () => {
 
   //product approved redux api
   const [putApporedProduct] = usePutApporedProductMutation();
+  //product delete redux api
+  const [deleteProduct] = useDeleteProductMutation();
 
   // product approved function
   const handleProductApproved = async (id) => {
     await putApporedProduct(id);
+  };
+
+  // product delete function
+  const handleProductDelete = async (id) => {
+    Swal.fire({
+      title: "Do you want Delete the product?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const deleteData = await deleteProduct(id);
+
+        if (deleteData?.data?.deletedCount === 1) {
+          Swal.fire({
+            title: "Product Deleted",
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            title: "Product Not deleted",
+            icon: "error",
+            confirmButtonText: "Try Again",
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -56,7 +88,12 @@ const ManageProduct = () => {
                       Edit
                     </Link>
                   </button>
-                  <button className="btn btn-error btn-xs">delete</button>
+                  <button
+                    className="btn btn-error btn-xs"
+                    onClick={() => handleProductDelete(product._id)}
+                  >
+                    delete
+                  </button>
                 </td>
                 <td>
                   {product.approved ? (

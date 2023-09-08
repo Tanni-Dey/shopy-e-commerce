@@ -1,6 +1,10 @@
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { auth } from "../../lib/firebase";
 
 const Dashboard = () => {
+  const [user] = useAuthState(auth);
+  const [signOut] = useSignOut(auth);
   return (
     <div className="container">
       <h2 className="text-primary font-semibold text-2xl text-center">
@@ -18,7 +22,7 @@ const Dashboard = () => {
             htmlFor="my-drawer-2"
             className="btn btn-primary drawer-button lg:hidden"
           >
-            Open drawer
+            Open menu
           </label>
         </div>
         <div className="drawer-side">
@@ -33,6 +37,14 @@ const Dashboard = () => {
                 Product Management
               </NavLink>
             </li>
+
+            {user && (
+              <a className="btn btn-primary w-1/2">
+                <NavLink onClick={async () => await signOut()} to="/login">
+                  Log out
+                </NavLink>
+              </a>
+            )}
           </ul>
         </div>
       </div>

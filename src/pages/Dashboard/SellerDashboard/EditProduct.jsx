@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useGetSingleProductQuery } from "../../../redux/api/ApiSlice";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 const EditProduct = () => {
+  const [myInput, setMyInput] = useState("");
   const { id } = useParams();
   const { data: product } = useGetSingleProductQuery(id, {
     refetchOnFocus: true,
@@ -12,10 +14,16 @@ const EditProduct = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
 
+  // const valuset = (myIn) => {
+  //   const data = { name: "tanni", age: 45 };
+  //   console.log(data[myIn]);
+  // };
+  // valuset("age");
   // product add form submit function
   const onSubmit = async (data) => {
     if (data.available === "true") {
@@ -34,6 +42,11 @@ const EditProduct = () => {
       data.offprint = false;
     }
 
+    if (data[myInput] === "") {
+      console.log("dukse");
+      // setValue({ title: product.title });
+      data[myInput] = product[myInput];
+    }
     console.log(data);
     // const postData = await postAddProduct(data);
     // if (postData?.data?.insertedId) {
@@ -61,8 +74,9 @@ const EditProduct = () => {
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <input
           type="text"
-          {...register("title", { required: true })}
+          {...register("title")}
           defaultValue={product?.title}
+          onMouseOver={() => setMyInput("title")}
           placeholder="Enter product name"
           className="input mr-3 input-bordered input-primary mb-3 w-full max-w-xs"
         />
@@ -72,8 +86,9 @@ const EditProduct = () => {
 
         <input
           type="text"
-          {...register("description", { required: true })}
+          {...register("description")}
           defaultValue={product?.description}
+          onMouseOver={() => setMyInput("description")}
           placeholder="Enter product description"
           className="input mr-3 input-bordered input-primary mb-3 w-full max-w-xs"
         />
@@ -81,7 +96,7 @@ const EditProduct = () => {
           <span className="text-error">Please give product description</span>
         )}
 
-        <input
+        {/* <input
           type="text"
           {...register("image", { required: true })}
           defaultValue={product?.image}
@@ -294,7 +309,7 @@ const EditProduct = () => {
             value={true}
           />
           offprint
-        </span>
+        </span> */}
         {/* {loading ? (
       <span className="loading loading-spinner text-primary"></span>
     ) : ( */}

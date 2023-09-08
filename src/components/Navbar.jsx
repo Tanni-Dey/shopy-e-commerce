@@ -75,13 +75,6 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        {user && (
-          <a className="btn">
-            <NavLink onClick={async () => await signOut()} to="login">
-              Log out
-            </NavLink>
-          </a>
-        )}
         {user && <NavLink to="/cart">cart</NavLink>}
       </div>
     </div>

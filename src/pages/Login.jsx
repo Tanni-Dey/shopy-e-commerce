@@ -1,11 +1,13 @@
 import { auth } from "../lib/firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 const Login = () => {
   const navigate = useNavigate();
+  let location = useLocation();
+  let from = location?.state?.from?.pathname || "/";
   const [wrongPassError, setWrongPassError] = useState("");
   const [notFoundUserError, setNotFoundUserError] = useState("");
   const [networkError, setNetworkError] = useState("");
@@ -21,7 +23,7 @@ const Login = () => {
 
   // after login navigation
   if (user) {
-    navigate("/");
+    navigate(from, { replace: true });
   }
 
   //firebase error handling

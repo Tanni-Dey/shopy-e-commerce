@@ -28,17 +28,17 @@ const AddNewProduct = () => {
     } else {
       data.offprint = false;
     }
-
+    data.wishList = [];
     const postData = await postAddProduct(data);
 
     if (postData?.data?.insertedId) {
-      void Swal.fire({
+      Swal.fire({
         title: "New Product Added",
         icon: "success",
       });
       reset();
     } else {
-      void Swal.fire({
+      Swal.fire({
         title: "Product Not Added",
         icon: "error",
         confirmButtonText: "Try Again",

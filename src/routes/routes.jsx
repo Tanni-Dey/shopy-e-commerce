@@ -10,6 +10,8 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import AddNewProduct from "../pages/Dashboard/SellerDashboard/AddNewProduct";
 import ManageProduct from "../pages/Dashboard/SellerDashboard/ManageProduct";
 import EditProduct from "../pages/Dashboard/SellerDashboard/EditProduct";
+import NotFound from "../pages/NotFound";
+import ProtectedRoute from "./ProtectedRoute";
 
 // All Routing
 const router = createBrowserRouter([
@@ -35,19 +37,35 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,
-            element: <AddNewProduct />,
+            element: (
+              <ProtectedRoute>
+                <AddNewProduct />,
+              </ProtectedRoute>
+            ),
           },
           {
             path: "manage-product",
-            element: <ManageProduct />,
+            element: (
+              <ProtectedRoute>
+                <ManageProduct />
+              </ProtectedRoute>
+            ),
           },
           {
             path: "edit-product/:id",
-            element: <EditProduct />,
+            element: (
+              <ProtectedRoute>
+                <EditProduct />,
+              </ProtectedRoute>
+            ),
           },
         ],
       },
@@ -57,9 +75,17 @@ const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element: <Cart />,
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
