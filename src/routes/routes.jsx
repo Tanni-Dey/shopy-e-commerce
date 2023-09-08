@@ -1,18 +1,23 @@
 import App from "../App";
-import Cart from "../pages/Cart";
 import Home from "../pages/Home";
+import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import AllProducts from "../pages/AllProducts";
-import ProductDetails from "../pages/ProductDetails";
-import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import AddNewProduct from "../pages/Dashboard/SellerDashboard/AddNewProduct";
-import ManageProduct from "../pages/Dashboard/SellerDashboard/ManageProduct";
-import EditProduct from "../pages/Dashboard/SellerDashboard/EditProduct";
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
+import AllProducts from "../pages/AllProducts";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import ProductDetails from "../pages/ProductDetails";
+import ProtectedUserRoute from "./ProtectedUserRoute";
+import { createBrowserRouter } from "react-router-dom";
+import ProtectedSellerRoute from "./ProtectedSellerRoute";
+import Payment from "../pages/Dashboard/UserDashboard/Payment";
 import Wishlist from "../pages/Dashboard/UserDashboard/Wishlist";
+import Purchase from "../pages/Dashboard/UserDashboard/Purchase";
+import OrderList from "../pages/Dashboard/UserDashboard/orderList";
+import EditProduct from "../pages/Dashboard/SellerDashboard/EditProduct";
+import AddNewProduct from "../pages/Dashboard/SellerDashboard/AddNewProduct";
+import ManageProduct from "../pages/Dashboard/SellerDashboard/ManageProduct";
 
 // All Routing
 const router = createBrowserRouter([
@@ -47,33 +52,57 @@ const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <ProtectedRoute>
+              <ProtectedSellerRoute>
                 <AddNewProduct />,
-              </ProtectedRoute>
+              </ProtectedSellerRoute>
             ),
           },
           {
             path: "manage-product",
             element: (
-              <ProtectedRoute>
+              <ProtectedSellerRoute>
                 <ManageProduct />
-              </ProtectedRoute>
+              </ProtectedSellerRoute>
             ),
           },
           {
             path: "edit-product/:id",
             element: (
-              <ProtectedRoute>
+              <ProtectedSellerRoute>
                 <EditProduct />,
-              </ProtectedRoute>
+              </ProtectedSellerRoute>
             ),
           },
           {
             path: "wishlist",
             element: (
-              <ProtectedRoute>
+              <ProtectedUserRoute>
                 <Wishlist />,
-              </ProtectedRoute>
+              </ProtectedUserRoute>
+            ),
+          },
+          {
+            path: "order",
+            element: (
+              <ProtectedUserRoute>
+                <OrderList />,
+              </ProtectedUserRoute>
+            ),
+          },
+          {
+            path: "purchase",
+            element: (
+              <ProtectedUserRoute>
+                <Purchase />
+              </ProtectedUserRoute>
+            ),
+          },
+          {
+            path: "payment/:id",
+            element: (
+              <ProtectedUserRoute>
+                <Payment />
+              </ProtectedUserRoute>
             ),
           },
         ],
@@ -85,9 +114,9 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: (
-          <ProtectedRoute>
+          <ProtectedUserRoute>
             <Cart />
-          </ProtectedRoute>
+          </ProtectedUserRoute>
         ),
       },
     ],

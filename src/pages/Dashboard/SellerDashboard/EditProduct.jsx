@@ -1,30 +1,26 @@
+import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
-import { useGetSingleProductQuery } from "../../../redux/api/ApiSlice";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useGetSingleProductQuery } from "../../../redux/api/ApiSlice";
 
 const EditProduct = () => {
-  const [myInput, setMyInput] = useState("");
   const { id } = useParams();
+
+  //product data fetch by id
   const { data: product } = useGetSingleProductQuery(id, {
     refetchOnFocus: true,
     pollingInterval: 3000,
   });
 
+  // react hook form
   const {
     register,
     handleSubmit,
-    setValue,
     reset,
     formState: { errors },
   } = useForm();
 
-  // const valuset = (myIn) => {
-  //   const data = { name: "tanni", age: 45 };
-  //   console.log(data[myIn]);
-  // };
-  // valuset("age");
-  // product add form submit function
+  //edit submit function
   const onSubmit = async (data) => {
     if (data.available === "true") {
       data.available = true;
@@ -42,22 +38,16 @@ const EditProduct = () => {
       data.offprint = false;
     }
 
-    if (data[myInput] === "") {
-      console.log("dukse");
-      // setValue({ title: product.title });
-      data[myInput] = product[myInput];
-    }
-    console.log(data);
     // const postData = await postAddProduct(data);
     // if (postData?.data?.insertedId) {
     //   void Swal.fire({
-    //     title: "New Product Added",
+    //     title: "Product Updated",
     //     icon: "success",
     //   });
     //   reset();
     // } else {
     //   void Swal.fire({
-    //     title: "Product Not Added",
+    //     title: "Product Not Updated",
     //     icon: "error",
     //     confirmButtonText: "Try Again",
     //   });
@@ -70,7 +60,7 @@ const EditProduct = () => {
         Edit {product?.title} Product
       </h2>
 
-      {/* --------Add product form start--------- */}
+      {/* --------edit product form start--------- */}
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <input
           type="text"
@@ -96,7 +86,7 @@ const EditProduct = () => {
           <span className="text-error">Please give product description</span>
         )}
 
-        {/* <input
+        <input
           type="text"
           {...register("image", { required: true })}
           defaultValue={product?.image}
@@ -309,18 +299,16 @@ const EditProduct = () => {
             value={true}
           />
           offprint
-        </span> */}
-        {/* {loading ? (
-      <span className="loading loading-spinner text-primary"></span>
-    ) : ( */}
+        </span>
+
         <input
           className="btn btn-primary w-full"
           type="submit"
-          value="Add Product"
+          value="Edit Product"
         />
         {/* )} */}
       </form>
-      {/* --------Add product form end--------- */}
+      {/* --------edit product form end--------- */}
     </div>
   );
 };

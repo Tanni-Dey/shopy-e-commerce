@@ -1,10 +1,13 @@
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { auth } from "../../lib/firebase";
+import useSeller from "../../hooks/useSeller";
 
 const Dashboard = () => {
   const [user] = useAuthState(auth);
+  const [seller] = useSeller(user);
   const [signOut] = useSignOut(auth);
+
   return (
     <div className="container">
       <h2 className="text-primary font-semibold text-2xl text-center">
@@ -29,17 +32,29 @@ const Dashboard = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
-            <li>
-              <Link to="/dashboard">Add New Product</Link>
-            </li>
-            <li>
-              <NavLink to="/dashboard/manage-product">
-                Product Management
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/wishlist">Wishlist</NavLink>
-            </li>
+            {seller && (
+              <li>
+                <Link to="/dashboard">Add New Product</Link>
+              </li>
+            )}
+
+            {seller && (
+              <li>
+                <NavLink to="/dashboard/manage-product">
+                  Product Management
+                </NavLink>
+              </li>
+            )}
+            {!seller && (
+              <li>
+                <Link to="/dashboard/wishlist">Wishlist</Link>
+              </li>
+            )}
+            {!seller && (
+              <li>
+                <Link to="/dashboard/order">My Order</Link>
+              </li>
+            )}
 
             {user && (
               <a className="btn btn-primary w-1/2">

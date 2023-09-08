@@ -6,10 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
+
+  //custom error state
   const [confirmPassError, setConfirmPassError] = useState("");
   const [weakPassError, setWeakPassError] = useState("");
   const [usedEmailError, setUsedEmailError] = useState("");
   const [networkError, setNetworkError] = useState("");
+
+  //react hook form
   const {
     register,
     handleSubmit,
@@ -17,6 +21,7 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
+  //signup with email function
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 

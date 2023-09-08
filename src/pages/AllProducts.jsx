@@ -1,3 +1,4 @@
+import { auth } from "../lib/firebase";
 import { Link } from "react-router-dom";
 import {
   useAddToWishlistMutation,
@@ -7,7 +8,6 @@ import {
   usePatchAddToCartMutation,
 } from "../redux/api/ApiSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../lib/firebase";
 
 const AllProducts = () => {
   const [user] = useAuthState(auth);
@@ -20,14 +20,14 @@ const AllProducts = () => {
     pollingInterval: 3000,
   });
 
-  //userCart dat fetch by redux api
+  //userCart dat fetch by redux rtk query
   const { data: userCart } = useGetUserCartProductQuery(user?.email, {
     refetchOnFocus: true,
     pollingInterval: 3000,
   });
 
-  //wishlist data fetch by redux api
-  const { data: wishlistProducts } = useGetUserWishlistQuery(user.email, {
+  //wishlist data fetch by redux api rtk query
+  const { data: wishlistProducts } = useGetUserWishlistQuery(user?.email, {
     refetchOnFocus: true,
     pollingInterval: 3000,
   });
@@ -39,16 +39,11 @@ const AllProducts = () => {
       cartQuantity: 1,
       productTotal: Number(product.price),
     };
-    // product.cartQuantity = 1;
-    // product.productTotal = Number(product.cartQuantity) * Number(product.price);
-    // const data = { user: user.email, productId: id, quantity: 1, total: price };
 
-    const addProduct = await patchAddToCart({
+    await patchAddToCart({
       data: { user: user.email, product: [newProduct] },
       email: user.email,
     });
-
-    console.log(addProduct);
   };
 
   //add to wishlist function

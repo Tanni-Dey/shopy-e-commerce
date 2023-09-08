@@ -1,12 +1,14 @@
 import { auth } from "../lib/firebase";
 import { NavLink } from "react-router-dom";
-import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import useSeller from "../hooks/useSeller";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
-  const [signOut] = useSignOut(auth);
+  const [seller] = useSeller(user);
+
   return (
-    <div className="navbar bg-base-100 container max-auto mb-20">
+    <div className="navbar bg-base-100 container max-auto mb-10">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -25,6 +27,7 @@ const Navbar = () => {
               />
             </svg>
           </label>
+          {/* --------for mobile view navbar ul----- */}
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
@@ -37,20 +40,29 @@ const Navbar = () => {
             </li>
             {!user && (
               <li>
-                <NavLink to="login">Login</NavLink>
+                <NavLink to="/login">Login</NavLink>
               </li>
             )}
-            <li>
-              <NavLink to="signup">Signup</NavLink>
-            </li>
-            <li>
-              <NavLink to="dashboard">Dashboard</NavLink>
-            </li>
+            {!user && (
+              <li>
+                <NavLink to="signup">Signup</NavLink>
+              </li>
+            )}
+            {seller ? (
+              <li>
+                <NavLink to="dashboard">Dashboard</NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/dashboard/wishlist">Dashboard</NavLink>
+              </li>
+            )}
           </ul>
         </div>
         <a className="btn btn-ghost normal-case text-xl">Shofy</a>
       </div>
 
+      {/* ---------------for large device ul view----------- */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
@@ -61,7 +73,7 @@ const Navbar = () => {
           </li>
           {!user && (
             <li>
-              <NavLink to="login">Login</NavLink>
+              <NavLink to="/login">Login</NavLink>
             </li>
           )}
           {!user && (
@@ -69,13 +81,19 @@ const Navbar = () => {
               <NavLink to="signup">Signup</NavLink>
             </li>
           )}
-          <li>
-            <NavLink to="dashboard">Dashboard</NavLink>
-          </li>
+          {seller ? (
+            <li>
+              <NavLink to="dashboard">Dashboard</NavLink>
+            </li>
+          ) : (
+            <li>
+              <NavLink to="/dashboard/wishlist">Dashboard</NavLink>
+            </li>
+          )}
         </ul>
       </div>
       <div className="navbar-end">
-        {user && <NavLink to="/cart">cart</NavLink>}
+        {!seller && <NavLink to="/cart">cart</NavLink>}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { usePostAddProductMutation } from "../../../redux/api/ApiSlice";
 
 const AddNewProduct = () => {
+  //post data by redux api
   const [postAddProduct] = usePostAddProductMutation();
   const {
     register,

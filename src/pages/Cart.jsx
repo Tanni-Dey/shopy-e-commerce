@@ -1,12 +1,13 @@
+import Swal from "sweetalert2";
 import {
   useDeleteCartMutation,
   useGetUserCartProductQuery,
   usePutCartQuantityMutation,
   usePutDeleteCartProductMutation,
 } from "../redux/api/ApiSlice";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../lib/firebase";
-import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Cart = () => {
   const [user] = useAuthState(auth);
@@ -17,7 +18,7 @@ const Cart = () => {
   //cart product delete data by user
   const [putDeleteCartProduct] = usePutDeleteCartProductMutation();
 
-  //cart product delete data by user
+  //cart delete by user
   const [deleteCart] = useDeleteCartMutation();
 
   //fetch cart data by user
@@ -141,10 +142,15 @@ const Cart = () => {
               </div>
             </div>
           ))}
-          <h2 className="text-2xl text-primary font-bold">
-            Total Amount : $
-            {(Math.round(userCart?.total * 100) / 100).toFixed(2)}
-          </h2>
+          <div>
+            <h2 className="text-2xl text-primary font-bold mb-5">
+              Total Amount : $
+              {(Math.round(userCart?.total * 100) / 100).toFixed(2)}
+            </h2>
+            <Link to="/dashboard/purchase">
+              <button className="btn btn-primary">Order Now</button>
+            </Link>
+          </div>
         </div>
       ) : (
         <h2 className="text-center text-primary font-bold text-2xl">

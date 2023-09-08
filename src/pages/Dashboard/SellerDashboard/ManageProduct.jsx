@@ -1,10 +1,10 @@
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import {
   useDeleteProductMutation,
   useGetAllProductsQuery,
   usePutApporedProductMutation,
 } from "../../../redux/api/ApiSlice";
-import Swal from "sweetalert2";
 
 const ManageProduct = () => {
   //data fetch by redux api
@@ -15,6 +15,7 @@ const ManageProduct = () => {
 
   //product approved redux api
   const [putApporedProduct] = usePutApporedProductMutation();
+
   //product delete redux api
   const [deleteProduct] = useDeleteProductMutation();
 
