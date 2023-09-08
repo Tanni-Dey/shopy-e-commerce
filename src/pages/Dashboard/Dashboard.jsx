@@ -37,6 +37,9 @@ const Dashboard = () => {
                 Product Management
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/dashboard/wishlist">Wishlist</NavLink>
+            </li>
 
             {user && (
               <a className="btn btn-primary w-1/2">

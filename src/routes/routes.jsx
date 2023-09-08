@@ -12,6 +12,7 @@ import ManageProduct from "../pages/Dashboard/SellerDashboard/ManageProduct";
 import EditProduct from "../pages/Dashboard/SellerDashboard/EditProduct";
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
+import Wishlist from "../pages/Dashboard/UserDashboard/Wishlist";
 
 // All Routing
 const router = createBrowserRouter([
@@ -64,6 +65,14 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute>
                 <EditProduct />,
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "wishlist",
+            element: (
+              <ProtectedRoute>
+                <Wishlist />,
               </ProtectedRoute>
             ),
           },

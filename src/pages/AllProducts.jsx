@@ -3,6 +3,7 @@ import {
   useAddToWishlistMutation,
   useGetAllProductsQuery,
   useGetUserCartProductQuery,
+  useGetUserWishlistQuery,
   usePatchAddToCartMutation,
 } from "../redux/api/ApiSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -21,6 +22,12 @@ const AllProducts = () => {
 
   //userCart dat fetch by redux api
   const { data: userCart } = useGetUserCartProductQuery(user?.email, {
+    refetchOnFocus: true,
+    pollingInterval: 3000,
+  });
+
+  //wishlist data fetch by redux api
+  const { data: wishlistProducts } = useGetUserWishlistQuery(user.email, {
     refetchOnFocus: true,
     pollingInterval: 3000,
   });
@@ -69,12 +76,20 @@ const AllProducts = () => {
                     Price : ${product.price}
                   </h6>
                   {user ? (
-                    <button
-                      className="btn btn-success btn-xs"
-                      onClick={() => handleAddToWishlist(product._id)}
-                    >
-                      Add To Wishlist
-                    </button>
+                    wishlistProducts?.find(
+                      (singleProduct) => singleProduct._id === product._id
+                    )?._id ? (
+                      <button className="btn btn-success btn-xs" disabled>
+                        Already added in wishlist
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-success btn-xs"
+                        onClick={() => handleAddToWishlist(product._id)}
+                      >
+                        Add To Wishlist
+                      </button>
+                    )
                   ) : (
                     <Link to="/login">
                       <button className="btn btn-primary btn-sm">
