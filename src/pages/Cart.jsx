@@ -154,7 +154,7 @@ const Cart = () => {
         </div>
       ) : (
         <h2 className="text-center text-primary font-bold text-2xl">
-          Doesn't Any Product in Cart
+          Haven't Any Product in Cart
         </h2>
       )}
     </div>

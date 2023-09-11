@@ -26,9 +26,6 @@ const ProductDetails = () => {
           <span>Size : {product?.size}</span>
           <span>Product Quantity : {product?.quantity}</span>
           <p className="capitalize">Category : {product?.category}</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
         </div>
       </div>
     </div>

@@ -44,8 +44,9 @@ const EditProduct = () => {
       data.offprint = false;
     }
 
-    const editData = await putEditProduct(data);
-    if (editData?.data?.insertedId) {
+    const editData = await putEditProduct({ id: id, data: data });
+
+    if (editData?.data?.modifiedCount === 1) {
       void Swal.fire({
         title: "Product Updated",
         icon: "success",
@@ -70,7 +71,8 @@ const EditProduct = () => {
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <input
           type="text"
-          {...register("title")}
+          name="title"
+          {...register("title", { required: true })}
           defaultValue={product?.title}
           placeholder="Enter product name"
           className="input mr-3 input-bordered input-primary mb-3 w-full max-w-xs"
@@ -81,7 +83,8 @@ const EditProduct = () => {
 
         <input
           type="text"
-          {...register("description")}
+          name="description"
+          {...register("description", { required: true })}
           defaultValue={product?.description}
           placeholder="Enter product description"
           className="input mr-3 input-bordered input-primary mb-3 w-full max-w-xs"
@@ -92,6 +95,7 @@ const EditProduct = () => {
 
         <input
           type="text"
+          name="image"
           {...register("image", { required: true })}
           defaultValue={product?.image}
           placeholder="Enter product image link"
@@ -103,6 +107,7 @@ const EditProduct = () => {
 
         <input
           type="text"
+          name="sellerSku"
           {...register("sellerSku", { required: true })}
           defaultValue={product?.sellerSku}
           placeholder="Enter your seller SKU"
@@ -148,6 +153,7 @@ const EditProduct = () => {
 
         <input
           type="number"
+          name="price"
           {...register("price", { required: true })}
           defaultValue={product?.price}
           placeholder="Enter poduct price"
@@ -159,6 +165,7 @@ const EditProduct = () => {
 
         <input
           type="number"
+          name="quantity"
           {...register("quantity", { required: true })}
           defaultValue={product?.quantity}
           placeholder="Enter product quantity"
@@ -260,6 +267,7 @@ const EditProduct = () => {
 
         <input
           type="number"
+          name="packageWeight"
           {...register("packageWeight", { required: true })}
           defaultValue={product?.packageWeight}
           placeholder="Enter product package weight"
@@ -273,6 +281,7 @@ const EditProduct = () => {
 
         <input
           type="text"
+          name="dimension"
           {...register("dimension", { required: true })}
           defaultValue={product?.dimension}
           placeholder="Enter product dimension"

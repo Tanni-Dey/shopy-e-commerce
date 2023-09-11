@@ -26,7 +26,7 @@ const Payment = () => {
           <h2 className="card-title">Pay for Order Id : {order?._id}</h2>
           <p>Please Pay ${order?.totalAmount}</p>
           <Elements stripe={stripePromise}>
-            {/* <Checkout order={order} /> */}
+            <Checkout order={order} />
           </Elements>
         </div>
       </div>

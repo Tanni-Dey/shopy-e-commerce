@@ -25,10 +25,10 @@ export const ApiSlice = createApi({
       }),
     }),
 
-    //product approved put query
+    //product edit put query
     putEditProduct: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/product-edit?id=${id}`,
+        url: `/product-edit/${id}`,
         method: "PUT",
         body: data,
       }),

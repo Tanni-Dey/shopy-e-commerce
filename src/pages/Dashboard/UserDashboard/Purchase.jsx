@@ -155,7 +155,9 @@ const Purchase = () => {
         <div className="card card-body">
           <h2 className="text-2xl text-primary font-bold mb-5">
             Total Amount : $
-            {(Math.round(userCart?.total * 100) / 100).toFixed(2)}
+            {userCart
+              ? (Math.round(userCart?.total * 100) / 100).toFixed(2)
+              : 0}
           </h2>
         </div>
       </div>

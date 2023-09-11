@@ -93,7 +93,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        {!seller && <NavLink to="/cart">cart</NavLink>}
+        {!seller && user && <NavLink to="/cart">cart</NavLink>}
       </div>
     </div>
   );

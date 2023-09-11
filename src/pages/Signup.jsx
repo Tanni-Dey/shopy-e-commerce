@@ -63,7 +63,7 @@ const Signup = () => {
       setConfirmPassError("Password and Confim Password are not same");
     } else {
       const userData = {
-        user: data.email,
+        email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
         phone: data.phone,

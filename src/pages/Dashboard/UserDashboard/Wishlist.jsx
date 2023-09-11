@@ -13,36 +13,42 @@ const Wishlist = () => {
 
   return (
     <div className="container mx-auto">
-      <table className="table table-xs">
-        <thead>
-          <tr>
-            <th>Product Image</th>
-            <th>Product Name</th>
-            <th>Color</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Stock</th>
-          </tr>
-        </thead>
-        {wishlistProducts?.map((product) => (
-          <tbody key={product._id}>
+      {wishlistProducts?.length !== 0 ? (
+        <table className="table table-xs">
+          <thead>
             <tr>
-              <td>
-                <div className="avatar">
-                  <div className="mask mask-squircle w-12 h-12">
-                    <img src={product?.image} alt="product-image" />
-                  </div>
-                </div>
-              </td>
-              <td>{product?.title}</td>
-              <td>{product?.color}</td>
-              <td>{product?.category}</td>
-              <td>${product?.price}</td>
-              <td>{product?.stockStatus === "stock-in" ? "in" : "out"}</td>
+              <th>Product Image</th>
+              <th>Product Name</th>
+              <th>Color</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
             </tr>
-          </tbody>
-        ))}
-      </table>
+          </thead>
+          {wishlistProducts?.map((product) => (
+            <tbody key={product._id}>
+              <tr>
+                <td>
+                  <div className="avatar">
+                    <div className="mask mask-squircle w-12 h-12">
+                      <img src={product?.image} alt="product-image" />
+                    </div>
+                  </div>
+                </td>
+                <td>{product?.title}</td>
+                <td>{product?.color}</td>
+                <td>{product?.category}</td>
+                <td>${product?.price}</td>
+                <td>{product?.stockStatus === "stock-in" ? "in" : "out"}</td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      ) : (
+        <h2 className="text-center text-primary font-bold text-2xl">
+          Haven't Any Product in your wishlist
+        </h2>
+      )}
     </div>
   );
 };

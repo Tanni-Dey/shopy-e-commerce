@@ -57,11 +57,9 @@ const Dashboard = () => {
             )}
 
             {user && (
-              <a className="btn btn-primary w-1/2">
-                <NavLink onClick={async () => await signOut()} to="/login">
-                  Log out
-                </NavLink>
-              </a>
+              <NavLink onClick={async () => await signOut()} to="/login">
+                <button className="btn btn-primary w-1/2">Log out</button>
+              </NavLink>
             )}
           </ul>
         </div>

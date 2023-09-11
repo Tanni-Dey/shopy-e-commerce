@@ -12,11 +12,8 @@ const useSeller = (user) => {
       .then((data) => {
         setSellerLoading(false);
         if (data.seller) {
-          return setSeller(true);
-        } else {
-          return setSeller(false);
+          setSeller(true);
         }
-        // console.log(data);
       });
   }
   return [seller, sellerLoading];

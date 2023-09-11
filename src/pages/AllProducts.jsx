@@ -8,9 +8,11 @@ import {
   usePatchAddToCartMutation,
 } from "../redux/api/ApiSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
+import useSeller from "../hooks/useSeller";
 
 const AllProducts = () => {
   const [user] = useAuthState(auth);
+  const [seller] = useSeller(user);
   const [patchAddToCart] = usePatchAddToCartMutation();
   const [addToWishlist] = useAddToWishlistMutation();
 
@@ -71,7 +73,8 @@ const AllProducts = () => {
                     Price : ${product.price}
                   </h6>
                   {user ? (
-                    wishlistProducts?.find(
+                    !seller &&
+                    (wishlistProducts?.find(
                       (singleProduct) => singleProduct._id === product._id
                     )?._id ? (
                       <button className="btn btn-success btn-xs" disabled>
@@ -79,15 +82,15 @@ const AllProducts = () => {
                       </button>
                     ) : (
                       <button
-                        className="btn btn-success btn-xs"
+                        className="btn btn-success btn-xs inline-block"
                         onClick={() => handleAddToWishlist(product._id)}
                       >
                         Add To Wishlist
                       </button>
-                    )
+                    ))
                   ) : (
                     <Link to="/login">
-                      <button className="btn btn-primary btn-sm">
+                      <button className="btn btn-success btn-xs">
                         Add To Wishlist
                       </button>
                     </Link>
@@ -99,7 +102,8 @@ const AllProducts = () => {
                       </button>
                     </Link>
                     {user ? (
-                      userCart?.cartProducts?.find(
+                      !seller &&
+                      (userCart?.cartProducts?.find(
                         (singleCartProduct) =>
                           singleCartProduct._id === product._id
                       )?._id ? (
@@ -113,7 +117,7 @@ const AllProducts = () => {
                         >
                           Add to cart
                         </button>
-                      )
+                      ))
                     ) : (
                       <Link to="/login">
                         <button className="btn btn-primary btn-sm">
